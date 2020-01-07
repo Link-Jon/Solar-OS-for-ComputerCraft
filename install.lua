@@ -33,21 +33,21 @@ local preset = {
 	start = function()
 		if not silent then print("Downloading files from GitHub...") end
 	end,
-	
+        local listdel = {"Version 1.2.1","README.md","LICENSE","_config.yml","install-solar-os.lua","json"
 	-- Function to run when the download completes
 	done = function(path)
 		if not silent then
-			print("Deleting unneccesary files")
-			fs.delete("Version 1.2.1")
-			fs.delete("README.md")
-			fs.delete("LICENSE")
-			fs.delete("_config.yml")
-			fs.delete("install-solar-os.lua")
-			fs.delete("json")
+			print("Deleting unnecessary files...")
+                        for a = 1, #listdel do
+                            fs.delete(list[a])
+                        end
+
 			local list = fs.list(fs.combine(path, "Version 1.3.9/os"))
 			for a = 1, #list do
-				fs.move( fs.combine(fs.combine(path, "Version 1.3.9/os"), list[a]), fs.combine(path, list[a]) )
+                        
+	                fs.move( fs.combine(fs.combine(path, "Version 1.3.9/os"), list[a]), fs.combine(path, list[a]) )
 			end
+
 			fs.delete("Version 1.3.9")
 			print("Done!")
 			print("Reboot to use Solar OS 1.3.9.")
